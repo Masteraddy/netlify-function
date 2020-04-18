@@ -1,0 +1,14 @@
+{
+	"name": "netlifytest",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"serve": "netlify-lambda serve functions",
+		"build": "netlify-lambda build functions"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"mongoose": "^5.9.9",
+		"netlify-lambda": "^1.6.3"
+	}
+}
