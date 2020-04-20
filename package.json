@@ -3,9 +3,8 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"scripts": {
-		"serve": "netlify-lambda serve functions",
-		"build": "netlify-lambda build functions",
-		"start": "node local"
+		"serve": "netlify-lambda serve lambda",
+		"build": "netlify-lambda build lambda"
 	},
 	"license": "MIT",
 	"dependencies": {
