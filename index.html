@@ -17,7 +17,99 @@
 <body>
     <h1>Netlify Function With MongoDB</h1>
     <p>Though its still under development but it works</p>
-    <p>Test at <a href="/.netlify/functions/home">The Api Outlet</a></p>
-    <p>Test at <a href="/.netlify/functions/api">The Api Outlet</a></p>
+    <form id="form" >
+        <span id="forerr" style="color: red;"></span> <br>
+        <input type="text" id="name" placeholder="Name"> <br>
+        <input type="text" id="type" placeholder="Type"> <br>
+        <button>Submit</button>
+    </form> <br>
+    <div id="datas" style="border: 2px solid #000;"></div>
+    <p>Test at <a href="/.netlify/functions/home">The Api Outlet 1</a></p>
+    <p>Test at <a href="/.netlify/functions/api">The Api Outlet 2</a></p>
+    <script>
+        const form = document.getElementById('form');
+        const type = document.getElementById('type');
+        const name = document.getElementById('name');
+        const datas = document.getElementById('datas');
+        const forerr = document.getElementById('forerr');
+        const url = 'http://localhost:9000/.netlify/functions/api'
+        form.addEventListener('submit', handleSubmit);
+
+        function getVal() {
+            fetch(url)
+            .then(res => res.json())
+            .then(val => {
+                // console.log(val)
+                val.data.map(dt => {
+                    let p = document.createElement('p');
+                    let b = document.createElement('button');
+                        let data = `Name: ${dt.name} - Type: ${dt.type}`;
+                        p.textContent = data;
+                        b.textContent = 'X';
+                        b.setAttribute('onclick', 'deleteData("'+dt._id+'")')
+                        p.appendChild(b)
+                        datas.appendChild(p)
+                        // b.addClass('delete');
+                })
+            }).catch(err => console.log(err))
+        }
+
+        function deleteData(params) {
+            fetch(url+'/'+params,
+                    {
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        body: JSON.stringify({type: typeval, name: nameval})
+                    })
+                    .then(res => res.json())
+                    .then((dat) => { 
+                        // console.log(dt)
+                        alert('Deleted Successfully');
+                        location.reload()
+                     })
+                    .catch(function(res){ console.log(res) })
+        }
+
+        getVal()
+
+        function handleSubmit(e) {
+            e.preventDefault()
+           let nameval = name.value;
+           let typeval = type.value;
+           if (nameval !== '' && typeval !== '') {
+               console.log(nameval, typeval)
+               fetch(url,
+                    {
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        body: JSON.stringify({type: typeval, name: nameval})
+                    })
+                    .then(res => res.json())
+                    .then((dat) => { 
+                        // console.log(dt)
+                        let dt = dat.data
+                        let p = document.createElement('p');
+                        let b = document.createElement('button');
+                        let data = `Name: ${dt.name} - Type: ${dt.type}`;
+                        p.textContent = data;
+                        b.textContent = 'X';
+                        b.setAttribute('onclick', 'deleteData("'+dt._id+'")')
+                        p.appendChild(b)
+                        datas.appendChild(p)
+                     })
+                    .catch(function(res){ console.log(res) })
+                forerr.innerHTML = ''
+           }else{
+               forerr.innerHTML = 'Please Enter All Field'
+           }
+        //    getVal()
+        }
+    </script>
 </body>
 </html>
