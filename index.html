@@ -55,15 +55,17 @@
         }
 
         function deleteData(params) {
-            fetch(url+'/delete/'+params,
-                    {
-                        headers: {
+            let deleteIt = confirm('Are you sure you want to delete?')
+            if(deleteIt) {
+                fetch(url+'/delete/'+params,
+                {
+                    headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
-                        },
-                        method: "POST",
-                        body: ''
-                    })
+                    },
+                    method: "POST",
+                    body: ''
+                })
                     .then(res => res.json())
                     .then((dat) => { 
                         // console.log(dt)
@@ -71,8 +73,9 @@
                         location.reload()
                      })
                     .catch(function(res){ console.log(res) })
-        }
-
+                }
+                }
+                
         getVal()
 
         function handleSubmit(e) {
