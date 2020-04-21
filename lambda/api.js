@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
 		.catch((err) => res.status(404).json({ msg: `Not post due to ${err}` }));
 });
 
-router.delete('/:id', (req, res) => {
+router.post('/delete/:id', (req, res) => {
 	Api.findByIdAndDelete(req.params.id, (err, todo) => {
 		if (err) return res.status(500).send({ success: false, err });
 		return res.json({ success: true });

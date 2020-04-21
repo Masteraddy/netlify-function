@@ -32,7 +32,7 @@
         const name = document.getElementById('name');
         const datas = document.getElementById('datas');
         const forerr = document.getElementById('forerr');
-        const url = '/.netlify/functions/api'
+        const url = 'http://localhost:9000/.netlify/functions/api'
         form.addEventListener('submit', handleSubmit);
 
         function getVal() {
@@ -55,13 +55,13 @@
         }
 
         function deleteData(params) {
-            fetch(url+'/'+params,
+            fetch(url+'/delete/'+params,
                     {
                         headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                         },
-                        method: "DELETE",
+                        method: "POST",
                         body: ''
                     })
                     .then(res => res.json())
