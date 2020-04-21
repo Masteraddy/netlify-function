@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
 router.post('/delete/:id', (req, res) => {
 	Api.findByIdAndDelete(req.params.id, (err, todo) => {
 		if (err) return res.status(500).send({ success: false, err });
-		return res.json({ success: true });
+		return res.json({ success: true, todo });
 	});
 });
 
