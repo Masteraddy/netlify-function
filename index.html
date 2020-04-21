@@ -32,7 +32,7 @@
         const name = document.getElementById('name');
         const datas = document.getElementById('datas');
         const forerr = document.getElementById('forerr');
-        const url = 'http://localhost:9000/.netlify/functions/api'
+        const url = '/.netlify/functions/api'
         form.addEventListener('submit', handleSubmit);
 
         function getVal() {
@@ -61,8 +61,8 @@
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                         },
-                        method: "POST",
-                        body: JSON.stringify({type: typeval, name: nameval})
+                        method: "DELETE",
+                        body: ''
                     })
                     .then(res => res.json())
                     .then((dat) => { 
